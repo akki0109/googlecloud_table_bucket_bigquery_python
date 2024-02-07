@@ -1,0 +1,9 @@
+create a cloud function 
+in the gcp while uploading function choose target type https
+it will give you a url save it any where it will require in cloud sheduler which will call this url 
+this generated url target to our function
+now choose runtime:- 3.10 , for python 
+choose entry point as your function name.
+paste your function in main.py 
+paste requirements.txt content as well
+and upload it
