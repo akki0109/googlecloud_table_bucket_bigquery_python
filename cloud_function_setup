@@ -6,4 +6,6 @@ now choose runtime:- 3.10 , for python
 choose entry point as your function name.
 paste your function in main.py 
 paste requirements.txt content as well
-and upload it
+and upload it.
+
+this cloud function will extract email attachement and save it inside cloud storage bucket.
