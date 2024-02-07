@@ -1,0 +1,45 @@
+import imaplib
+import email
+from google.cloud import storage
+from flask import jsonify
+
+def extract_attachments_from_email(request):
+    # Hardcode values
+    email_address = "faizalsheikh2488@gmail.com"
+    password = "lnmv nmsa lyyc kjlo"
+    output_bucket = "akash0109"
+    output_path = ""  # Upload to the root of the bucket
+
+    # Connect to Gmail's IMAP server
+    mail = imaplib.IMAP4_SSL("imap.gmail.com")
+    mail.login(email_address, password)
+
+    # Select the inbox folder
+    mail.select("inbox")
+
+    # Search for emails with the specified subject
+    result, data = mail.search(None, '(SUBJECT "json")')
+    if result == "OK":
+        for num in data[0].split():
+            # Fetch the email
+            result, data = mail.fetch(num, "(RFC822)")
+            if result == "OK":
+                raw_email = data[0][1]
+                # Parse the email
+                msg = email.message_from_bytes(raw_email)
+                for part in msg.walk():
+                    if part.get_content_maintype() == "multipart":
+                        continue
+                    if part.get("Content-Disposition") is None:
+                        continue
+                    # Save the attachment to Google Cloud Storage
+                    filename = part.get_filename()
+                    if filename:
+                        storage_client = storage.Client()
+                        bucket = storage_client.bucket(output_bucket)
+                        blob = bucket.blob(output_path + filename)
+                        # Upload the attachment
+                        blob.upload_from_string(part.get_payload(decode=True))
+
+    # Return a success message
+    return jsonify({"message": "Attachments extracted and uploaded successfully."})
