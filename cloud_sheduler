@@ -1,0 +1,11 @@
+choose same region where your function is deployed.
+choose frequency as per your demand if you want to call function every hour once then 0 * * * * .
+choose time zone as :-  
+Timezone 
+Central Standard Time (CST)  if you are in Region us-central1   
+
+Configure the execution
+Target type :- HTTP
+URL:- https://us-central1-nest-auth-407906.cloudfunctions.net/function-3   (this url created while we configure our function so just copy and past here)
+HTTP method :- POST
+finish
