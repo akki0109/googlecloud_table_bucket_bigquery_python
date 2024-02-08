@@ -5,8 +5,8 @@ from flask import jsonify
 
 def extract_attachments_from_email(request):
     # Hardcode values
-    email_address = "faizalsheikh2488@gmail.com"
-    password = "lnmv nmsa lyyc kjlo"
+    email_address = "***********************************"
+    password = "******************"
     output_bucket = "akash0109"
     output_path = ""  # Upload to the root of the bucket
 
